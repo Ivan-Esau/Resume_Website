@@ -172,7 +172,7 @@ export default function HeroSection() {
                 Get In Touch
               </a>
               <a
-                href="/Ivan_Esau_CV.pdf"
+                href={`${import.meta.env.BASE_URL}Ivan_Esau_CV.pdf`}
                 download
                 className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium rounded-lg border border-border text-text-secondary hover:border-accent hover:text-accent transition-all duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
@@ -203,7 +203,7 @@ export default function HeroSection() {
             <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-full overflow-hidden border-2 border-border/50 shadow-xl shadow-accent/10 relative glass-photo">
               {!imgError ? (
                 <img
-                  src="/ivan-esau.jpg"
+                  src={`${import.meta.env.BASE_URL}ivan-esau.jpg`}
                   alt="Ivan Esau — Software Engineer"
                   width={256}
                   height={256}
