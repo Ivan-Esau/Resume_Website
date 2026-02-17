@@ -1,0 +1,55 @@
+---
+import Icon from "../ui/Icon.astro";
+import { socials } from "../../data/socials";
+---
+
+<section id="contact" class="py-20 sm:py-24 relative overflow-hidden" aria-labelledby="contact-heading">
+  <!-- Gradient background -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-accent/5 blur-3xl"></div>
+    <div class="absolute top-1/4 right-1/4 w-[300px] h-[300px] rounded-full bg-accent/3 blur-3xl"></div>
+  </div>
+
+  <div class="relative max-w-5xl mx-auto px-4 sm:px-6">
+    <div class="max-w-2xl mx-auto text-center reveal" data-animation="fade-up">
+      <!-- Heading -->
+      <div class="mb-12">
+        <h2 id="contact-heading" class="text-2xl sm:text-3xl font-bold text-text-primary mb-3">
+          Get In Touch<span class="text-accent">.</span>
+        </h2>
+        <div class="h-1 w-16 rounded-full bg-accent mx-auto"></div>
+      </div>
+
+      <p class="text-lg text-text-secondary leading-relaxed mb-10 max-w-lg mx-auto">
+        Interested in AI agent systems, software engineering research, or collaboration opportunities?
+        I'd be happy to connect.
+      </p>
+
+      <!-- Email CTA -->
+      <div class="mb-10">
+        <a
+          href="mailto:esau.ivan@fh-swf.de"
+          class="inline-flex items-center gap-2 px-8 py-4 text-base font-medium rounded-xl bg-accent text-bg-primary hover:bg-accent-hover transition-all duration-200 hover:scale-[1.03] hover:shadow-lg hover:shadow-accent/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        >
+          <Icon name="mail" size={20} />
+          esau.ivan@fh-swf.de
+        </a>
+      </div>
+
+      <!-- Social links -->
+      <div class="flex gap-3 justify-center">
+        {socials.map((social) => (
+          <a
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={social.label}
+            class="p-3 rounded-xl text-text-tertiary hover:text-accent hover:bg-bg-tertiary/50 transition-all duration-200 hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          >
+            <Icon name={social.icon} size={24} />
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

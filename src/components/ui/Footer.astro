@@ -1,0 +1,28 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="border-t border-border py-8">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+    <p class="text-sm text-text-tertiary">
+      &copy; {currentYear} Ivan Esau. Built with
+      <a
+        href="https://astro.build"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-text-secondary hover:text-accent transition-colors"
+      >
+        Astro
+      </a>
+      &
+      <a
+        href="https://tailwindcss.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-text-secondary hover:text-accent transition-colors"
+      >
+        Tailwind CSS
+      </a>.
+    </p>
+  </div>
+</footer>

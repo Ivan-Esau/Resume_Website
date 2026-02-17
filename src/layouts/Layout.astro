@@ -1,0 +1,170 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Ivan Esau — From Engineering to AI Research",
+  description = "Research Associate & Lecturer at FH Südwestfalen. From engineering workshops to AI research labs — building agentic AI systems for software engineering. Deutschlandstipendium recipient, published researcher.",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={new URL("/og-image.png", Astro.site)} />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL("/og-image.png", Astro.site)} />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ivan Esau",
+      "url": canonicalURL,
+      "jobTitle": "Research Associate & Lecturer",
+      "description": "From engineering workshops to AI research labs — building agentic AI systems for software engineering.",
+      "knowsAbout": ["AI Agent Systems", "Software Engineering", "Java", "Python", "Requirements Engineering"],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Fachhochschule Südwestfalen"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Fachhochschule Südwestfalen"
+      },
+      "award": "Deutschlandstipendium",
+      "sameAs": [
+        "https://github.com/Ivan-Esau",
+        "https://gitlab.com/Ivan-Esau",
+        "https://linkedin.com/in/ivan-esau-084063232"
+      ]
+    })} />
+
+    <!-- Theme initialization (must run before paint to prevent FOUC) -->
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        if (stored === "dark" || (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen antialiased">
+    <a href="#main-content" class="skip-to-content">Skip to content</a>
+    <slot />
+
+    <!-- Smooth scroll + GSAP scroll animations -->
+    <script>
+      import { initSmoothScroll } from "../lib/animations";
+      import { gsap, ScrollTrigger, registerGSAP } from "../lib/gsap-register";
+
+      initSmoothScroll();
+
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!prefersReduced) {
+        registerGSAP();
+
+        document.querySelectorAll(".reveal").forEach((el) => {
+          const animation = (el as HTMLElement).dataset.animation || "fade-up";
+          const staggerChildren = animation === "stagger-children";
+
+          const fromVars: Record<string, gsap.TweenVars> = {
+            "fade-up": { y: 40, opacity: 0 },
+            "fade-left": { x: -60, opacity: 0 },
+            "fade-right": { x: 60, opacity: 0 },
+            "scale-in": { scale: 0.92, opacity: 0 },
+            "stagger-children": { y: 30, opacity: 0 },
+          };
+
+          const toVars: Record<string, gsap.TweenVars> = {
+            "fade-up": { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" },
+            "fade-left": { x: 0, opacity: 1, duration: 0.7, ease: "power2.out" },
+            "fade-right": { x: 0, opacity: 1, duration: 0.7, ease: "power2.out" },
+            "scale-in": { scale: 1, opacity: 1, duration: 0.7, ease: "power2.out" },
+            "stagger-children": { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power2.out" },
+          };
+
+          const targets = staggerChildren ? el.children : el;
+          gsap.set(targets, fromVars[animation]);
+
+          gsap.to(targets, {
+            ...toVars[animation],
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              once: true,
+            },
+          });
+        });
+      } else {
+        document.querySelectorAll(".reveal").forEach((el) => {
+          (el as HTMLElement).style.opacity = "1";
+          (el as HTMLElement).style.transform = "none";
+        });
+      }
+    </script>
+
+    <!-- Nav active-state highlighting -->
+    <script is:inline>
+      (function () {
+        const sections = document.querySelectorAll("section[id]");
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const id = entry.target.getAttribute("id");
+                navLinks.forEach((link) => {
+                  const isActive = link.getAttribute("href") === "#" + id;
+                  link.classList.toggle("text-accent", isActive);
+                  link.classList.toggle("text-text-secondary", !isActive);
+                });
+              }
+            });
+          },
+          { threshold: 0.2, rootMargin: "-80px 0px -50% 0px" }
+        );
+
+        sections.forEach((section) => observer.observe(section));
+      })();
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  @import "../styles/global.css";
+</style>

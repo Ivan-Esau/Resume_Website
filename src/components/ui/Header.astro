@@ -1,0 +1,157 @@
+---
+import ThemeToggle from "./ThemeToggle.astro";
+import Icon from "./Icon.astro";
+
+const navLinks = [
+  { href: "#journey", label: "Journey" },
+  { href: "#path", label: "Path" },
+  { href: "#skills", label: "Skills" },
+  { href: "#featured-work", label: "Work" },
+  { href: "#contact", label: "Contact" },
+];
+---
+
+<header
+  id="site-header"
+  class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-bg-primary/60 border-b border-transparent transition-all duration-300"
+>
+  <nav class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <!-- Logo / Name -->
+    <a
+      href="#hero"
+      class="text-text-primary font-bold text-lg hover:text-accent transition-colors"
+    >
+      IE<span class="text-accent">.</span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <ul class="hidden md:flex items-center gap-1">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-bg-tertiary/50 transition-colors duration-200"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+      <li class="ml-2">
+        <ThemeToggle />
+      </li>
+    </ul>
+
+    <!-- Mobile Controls -->
+    <div class="flex items-center gap-2 md:hidden">
+      <ThemeToggle />
+      <button
+        id="mobile-menu-btn"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="p-2 rounded-lg text-text-tertiary hover:text-text-primary hover:bg-bg-tertiary transition-colors"
+      >
+        <Icon name="menu" size={24} />
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 z-50 hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Navigation menu"
+  >
+    <div id="mobile-menu-backdrop" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+    <div
+      id="mobile-menu-panel"
+      class="absolute right-0 top-0 h-full w-72 bg-bg-primary border-l border-border shadow-xl transform translate-x-full transition-transform duration-300 ease-out"
+    >
+      <div class="flex items-center justify-between p-4 border-b border-border">
+        <span class="text-text-primary font-bold">Menu</span>
+        <button
+          id="mobile-menu-close"
+          type="button"
+          aria-label="Close menu"
+          class="p-2 rounded-lg text-text-tertiary hover:text-text-primary hover:bg-bg-tertiary transition-colors"
+        >
+          <Icon name="x" size={24} />
+        </button>
+      </div>
+      <ul class="p-4 space-y-1">
+        {navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-text-secondary hover:text-text-primary hover:bg-bg-tertiary/50 transition-colors"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (function () {
+    const menuBtn = document.getElementById("mobile-menu-btn");
+    const menu = document.getElementById("mobile-menu");
+    const panel = document.getElementById("mobile-menu-panel");
+    const backdrop = document.getElementById("mobile-menu-backdrop");
+    const closeBtn = document.getElementById("mobile-menu-close");
+    const mobileLinks = document.querySelectorAll(".mobile-nav-link");
+
+    function openMenu() {
+      menu.classList.remove("hidden");
+      requestAnimationFrame(() => {
+        panel.classList.remove("translate-x-full");
+      });
+      menuBtn.setAttribute("aria-expanded", "true");
+      closeBtn.focus();
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeMenu() {
+      panel.classList.add("translate-x-full");
+      menuBtn.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+      setTimeout(() => menu.classList.add("hidden"), 300);
+    }
+
+    menuBtn.addEventListener("click", openMenu);
+    closeBtn.addEventListener("click", closeMenu);
+    backdrop.addEventListener("click", closeMenu);
+    mobileLinks.forEach((link) => link.addEventListener("click", closeMenu));
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !menu.classList.contains("hidden")) {
+        closeMenu();
+        menuBtn.focus();
+      }
+    });
+
+    // Scroll-aware header: add solid background + border after scrolling past hero
+    const header = document.getElementById("site-header");
+    let ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const scrolled = window.scrollY > 100;
+        header.classList.toggle("bg-bg-primary/90", scrolled);
+        header.classList.toggle("bg-bg-primary/60", !scrolled);
+        header.classList.toggle("border-border", scrolled);
+        header.classList.toggle("border-transparent", !scrolled);
+        header.classList.toggle("shadow-sm", scrolled);
+        ticking = false;
+      });
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  })();
+</script>

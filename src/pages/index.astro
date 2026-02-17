@@ -1,0 +1,24 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/ui/Header.astro";
+import Footer from "../components/ui/Footer.astro";
+import HeroSection from "../components/sections/HeroSection.tsx";
+import JourneySection from "../components/sections/JourneySection.tsx";
+import CareerPathSection from "../components/sections/CareerPathSection.tsx";
+import SkillsSection from "../components/sections/SkillsSection.tsx";
+import FeaturedWorkSection from "../components/sections/FeaturedWorkSection.tsx";
+import ContactSection from "../components/sections/ContactSection.astro";
+---
+
+<Layout>
+  <Header />
+  <main id="main-content">
+    <HeroSection client:load />
+    <JourneySection client:visible />
+    <CareerPathSection client:visible />
+    <SkillsSection client:visible />
+    <FeaturedWorkSection client:visible />
+    <ContactSection />
+  </main>
+  <Footer />
+</Layout>
