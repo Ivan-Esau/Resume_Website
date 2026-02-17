@@ -124,7 +124,6 @@ export default function SkillsSection() {
             <div
               key={category.title}
               className={`bento-card rounded-2xl p-6 glass hover:border-accent/30 transition-all duration-300 hover:-translate-y-0.5 ${spanClasses[category.gridSpan]}`}
-              style={{ opacity: 0 }}
             >
               {/* Category header */}
               <div className="flex items-center gap-3 mb-4">
@@ -146,7 +145,6 @@ export default function SkillsSection() {
                         ? "bg-accent-muted text-accent hover:bg-accent/20"
                         : "border border-border text-text-tertiary hover:border-accent/40 hover:text-text-secondary"
                     }`}
-                    style={{ opacity: 0 }}
                   >
                     <span
                       className={`w-1.5 h-1.5 rounded-full ${

@@ -199,7 +199,7 @@ export default function HeroSection() {
           </div>
 
           {/* Profile Photo */}
-          <div ref={photoRef} className="shrink-0" style={{ opacity: 0 }}>
+          <div ref={photoRef} className="shrink-0">
             <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-full overflow-hidden border-2 border-border/50 shadow-xl shadow-accent/10 relative glass-photo">
               {!imgError ? (
                 <img
@@ -227,7 +227,6 @@ export default function HeroSection() {
       <div
         ref={scrollRef}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        style={{ opacity: 0 }}
       >
         <span className="text-xs font-mono text-text-tertiary tracking-wider">
           Scroll

@@ -121,7 +121,6 @@ export default function CareerPathSection() {
           <div
             ref={lineRef}
             className="absolute left-[7px] md:left-1/2 md:-translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-accent/40 via-accent/20 to-transparent origin-top"
-            style={{ scaleY: 0 }}
             aria-hidden="true"
           />
 
@@ -158,7 +157,6 @@ function TimelinePoint({ point, dotRef, eduCardRef, workCardRef }: TimelinePoint
       <div
         ref={dotRef}
         className="absolute left-0 md:left-1/2 md:-translate-x-1/2 top-6 w-[15px] h-[15px] rounded-full border-2 border-accent bg-bg-primary z-10"
-        style={{ opacity: 0 }}
         aria-hidden="true"
       />
 
@@ -176,7 +174,6 @@ function TimelinePoint({ point, dotRef, eduCardRef, workCardRef }: TimelinePoint
           <div
             ref={eduCardRef}
             className="w-full md:w-[calc(50%-1.5rem)] md:text-right"
-            style={{ opacity: 0 }}
           >
             <EducationCard entry={point.education} dateRange={point.dateRange} />
           </div>
@@ -189,7 +186,6 @@ function TimelinePoint({ point, dotRef, eduCardRef, workCardRef }: TimelinePoint
           <div
             ref={workCardRef}
             className="w-full md:w-[calc(50%-1.5rem)] md:ml-auto"
-            style={{ opacity: 0 }}
           >
             <WorkCard entry={point.work} dateRange={point.dateRange} />
           </div>

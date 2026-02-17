@@ -180,7 +180,6 @@ export default function JourneySection() {
               <div
                 key={milestone.phase}
                 className="journey-card group relative rounded-2xl p-6 glass hover:border-accent/30 transition-all duration-300 hover:-translate-y-1"
-                style={{ opacity: 0 }}
               >
                 {/* Phase number */}
                 <span className="text-xs font-mono text-accent/60 mb-3 block">
@@ -216,7 +215,6 @@ export default function JourneySection() {
             <div
               key={achievement.label}
               className="flex items-center gap-3 p-4 rounded-xl glass hover:border-accent/30 transition-all duration-300"
-              style={{ opacity: 0 }}
             >
               <div className="p-2 rounded-lg bg-accent-muted text-accent shrink-0">
                 <SvgIcon name={achievement.icon} size={20} />

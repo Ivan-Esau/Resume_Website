@@ -127,7 +127,6 @@ export default function FeaturedWorkSection() {
         <div
           ref={cardRef}
           className="rounded-2xl glass p-8 sm:p-10 hover:border-accent/30 transition-all duration-300"
-          style={{ opacity: 0 }}
         >
           {/* Header row */}
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
@@ -159,7 +158,6 @@ export default function FeaturedWorkSection() {
                 <li
                   key={i}
                   className="highlight-item flex items-start gap-3 text-sm text-text-secondary"
-                  style={{ opacity: 0 }}
                 >
                   <span className="text-accent mt-0.5 shrink-0">
                     <SvgIcon name="check-circle" size={16} />
@@ -204,7 +202,6 @@ export default function FeaturedWorkSection() {
           <div
             ref={pubRef}
             className="mt-6 rounded-xl glass p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4"
-            style={{ opacity: 0 }}
           >
             <div className="p-2 rounded-lg bg-accent-muted text-accent shrink-0">
               <SvgIcon name="book-open" size={20} />
