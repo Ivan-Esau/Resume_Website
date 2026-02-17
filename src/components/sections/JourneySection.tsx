@@ -175,7 +175,7 @@ export default function JourneySection() {
             />
           </svg>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6">
             {milestones.map((milestone) => (
               <div
                 key={milestone.phase}
